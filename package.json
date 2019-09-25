@@ -1,5 +1,5 @@
 {
-  "name": "react-native-scrollable-tab-view",
+  "name": "@victorzimnikov/react-native-scrollable-tab-view",
   "version": "0.10.0",
   "description": "",
   "main": "index.js",
