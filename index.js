@@ -10,10 +10,11 @@ const {
   ScrollView,
   Platform,
   StyleSheet,
-  ViewPagerAndroid,
   InteractionManager,
 } = ReactNative;
 const TimerMixin = require('react-timer-mixin');
+
+const ViewPagerAndroid = require("@react-native-community/viewpager");
 
 const SceneComponent = require('./SceneComponent');
 const DefaultTabBar = require('./DefaultTabBar');
@@ -107,13 +108,13 @@ const ScrollableTabView = createReactClass({
     };
   },
 
-  componentWillReceiveProps(props) {
-    if (props.children !== this.props.children) {
-      this.updateSceneKeys({ page: this.state.currentPage, children: props.children, });
+  componentDidUpdate(prevProps) {
+    if (this.props.children !== prevProps.children) {
+      this.updateSceneKeys({ page: this.state.currentPage, children: this.props.children, });
     }
 
-    if (props.page >= 0 && props.page !== this.state.currentPage) {
-      this.goToPage(props.page);
+    if (this.props.page >= 0 && this.props.page !== this.state.currentPage) {
+      this.goToPage(this.props.page);
     }
   },
 
@@ -332,7 +333,7 @@ const ScrollableTabView = createReactClass({
     if (!width || width <= 0 || Math.round(width) === Math.round(this.state.containerWidth)) {
       return;
     }
-    
+
     if (Platform.OS === 'ios') {
       const containerWidthAnimatedValue = new Animated.Value(width);
       // Need to call __makeNative manually to avoid a native animated bug. See
